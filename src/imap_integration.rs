@@ -173,8 +173,8 @@ impl ImapServer {
 
         let parsed = match parsed {
             Ok(data) => data,
-            Err(_) => return format!("Parsing-Error-{uid}.eml");
-        }
+            Err(_) => return format!("Parsing-Error-{uid}.eml").to_string(),
+        };
 
         let headers = parsed.get_headers();
 
