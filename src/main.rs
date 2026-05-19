@@ -9,7 +9,11 @@ use imap_integration::ImapServer;
 fn main() {
     let mut server = ImapServer::spawn();
 
-    server.change_session_selection("staging-test");
+    println!("enter folder name: ");
+    let mut folder = String::new();
+    io::stdin().read_line(&mut folder).expect("An error occured");
+
+    server.change_session_selection(folder.trim());
 
     let number = server.fetch_uids().len();
 

@@ -169,7 +169,13 @@ impl ImapServer {
     }
 
     fn make_filename(uid: u32, raw: &[u8]) -> String {
-        let parsed = parse_mail(raw).unwrap();
+        let parsed = parse_mail(raw);
+
+        let parsed = match parsed {
+            Ok(data) => data,
+            Err(_) => return format!("Parsing-Error-{uid}.eml");
+        }
+
         let headers = parsed.get_headers();
 
         let date = headers
